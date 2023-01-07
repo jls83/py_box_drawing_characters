@@ -1,19 +1,5 @@
 from enum import Enum
 
-
-def to_telescope_collection(chars):
-    nw = chr(chars[2])
-    ne = chr(chars[3])
-    se = chr(chars[4])
-    sw = chr(chars[5])
-    n  = chr(chars[0])
-    s  = chr(chars[0])
-    e  = chr(chars[1])
-    w  = chr(chars[1])
-
-    # top, right, bottom, left, NW, NE, SE, SW
-    return [n, w, s, e, nw, ne, se, sw]
-
 class LineWeight(Enum):
     LIGHT = 1
     HEAVY = 2
