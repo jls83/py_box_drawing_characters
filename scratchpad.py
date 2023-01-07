@@ -1,4 +1,5 @@
-from .box_drawing_stuff import *
+from py_box.appearance import LineAppearance, LineSomething, LineWeight
+from py_box.box_drawing import BoxDrawing
 
 appearances = []
 
