@@ -1,11 +1,11 @@
-from py_box.appearance import LineAppearance, LineSomething, LineWeight
+from py_box.appearance import LineAppearance, LinePattern, LineWeight
 from py_box.box_drawing import BoxDrawing
 
 appearances = []
 
 for line_weight in LineWeight:
-    for line_something in LineSomething:
-        appearances.append(LineAppearance(line_weight, line_something))
+    for line_pattern in LinePattern:
+        appearances.append(LineAppearance(line_weight, line_pattern))
 
 simple_boxes = [BoxDrawing(line_appearance) for line_appearance in appearances]
 

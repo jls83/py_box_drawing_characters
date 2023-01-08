@@ -10,7 +10,7 @@ class CornerDirection(Enum):
 
 class Corner:
     def __init__(self, direction: CornerDirection, line_weights=None,
-                 line_somethings=None):
+                 line_patterns=None):
         self.direction = direction
 
         if line_weights is None:
@@ -22,13 +22,13 @@ class Corner:
             self.line_weights = line_weights
 
 
-        if line_somethings is None:
-            self.line_somethings = {
+        if line_patterns is None:
+            self.line_patterns = {
                 "h": LineSomething.SOLID,
                 "v": LineSomething.SOLID,
             }
         else:
-            self.line_somethings = line_somethings
+            self.line_patterns = line_patterns
 
     def __repr__(self):
         return f'<Corner: {self.unicode_name}>'
@@ -94,10 +94,10 @@ class Corner:
             "h": horizontal.line_weight,
             "v": vertical.line_weight,
         }
-        line_somethings = {
-            "h": horizontal.line_something,
-            "v": vertical.line_something,
+        line_patterns = {
+            "h": horizontal.line_pattern,
+            "v": vertical.line_pattern,
         }
-        return cls(direction, line_weights, line_somethings)
+        return cls(direction, line_weights, line_patterns)
 
 

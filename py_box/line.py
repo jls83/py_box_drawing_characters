@@ -20,8 +20,8 @@ class Line:
     def unicode_name(self):
         parts = ["BOX DRAWINGS", self.line_appearance.line_weight.name]
 
-        if self.line_appearance.line_something != LineSomething.SOLID:
-            parts.append(self.line_appearance.line_something.unicode_name)
+        if self.line_appearance.line_pattern != LineSomething.SOLID:
+            parts.append(self.line_appearance.line_pattern.unicode_name)
 
         parts.append(self.direction.name)
 

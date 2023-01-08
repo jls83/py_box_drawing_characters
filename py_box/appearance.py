@@ -5,7 +5,7 @@ class LineWeight(Enum):
     HEAVY = 2
     DOUBLE = 3
 
-class LineSomething(Enum):
+class LinePattern(Enum):
     SOLID = 1
     DOUBLE_DASH = 2
     TRIPLE_DASH = 3
@@ -13,15 +13,15 @@ class LineSomething(Enum):
 
     @property
     def unicode_name(self):
-        if self is LineSomething.DOUBLE_DASH:
+        if self is LinePattern.DOUBLE_DASH:
             return "DOUBLE DASH"
-        elif self is LineSomething.TRIPLE_DASH:
+        elif self is LinePattern.TRIPLE_DASH:
             return "TRIPLE DASH"
-        elif self is LineSomething.QUAD_DASH:
+        elif self is LinePattern.QUAD_DASH:
             return "QUADRUPLE DASH"
         return "SOLID"
 
 class LineAppearance:
-    def __init__(self, line_weight: LineWeight, line_something: LineSomething):
+    def __init__(self, line_weight: LineWeight, line_pattern: LinePattern):
         self.line_weight = line_weight
-        self.line_something = line_something
+        self.line_pattern = line_pattern
