@@ -30,3 +30,7 @@ for top in appearances:
                     four_part_boxes.append(BoxDrawing(top, bottom, left, right))
                 except (BoxDrawingException, CornerException):
                     continue
+
+line_appearance_light = LineAppearance(LineWeight.LIGHT, LinePattern.SOLID)
+line_appearance_heavy = LineAppearance(LineWeight.HEAVY, LinePattern.SOLID)
+line_appearance_double = LineAppearance(LineWeight.DOUBLE, LinePattern.SOLID)
