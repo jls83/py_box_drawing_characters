@@ -1,9 +1,11 @@
 from enum import Enum
 
+
 class LineWeight(Enum):
     LIGHT = 1
     HEAVY = 2
     DOUBLE = 3
+
 
 class LinePattern(Enum):
     SOLID = 1
@@ -21,7 +23,18 @@ class LinePattern(Enum):
             return "QUADRUPLE DASH"
         return "SOLID"
 
+
+class LineAppearanceException(Exception):
+    pass
+
+
 class LineAppearance:
     def __init__(self, line_weight: LineWeight, line_pattern: LinePattern):
+        if line_weight == LineWeight.DOUBLE and line_pattern != LinePattern.SOLID:
+            raise LineAppearanceException(
+                f"Cannot create `LineAppearance` with `DOUBLE` line weight and "
+                f"`{line_pattern.name}` line pattern"
+            )
+
         self.line_weight = line_weight
         self.line_pattern = line_pattern
