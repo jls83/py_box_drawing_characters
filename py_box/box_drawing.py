@@ -93,3 +93,18 @@ class BoxDrawing:
         ]
 
         return chars
+
+    def to_nvim_collection(self) -> List[str]:
+        chars = [
+            self.nw_corner.unicode_str,
+            self.north.unicode_str,
+            self.ne_corner.unicode_str,
+            self.east.unicode_str,
+            self.se_corner.unicode_str,
+            self.south.unicode_str,
+            self.sw_corner.unicode_str,
+            self.west.unicode_str,
+        ]
+
+        return chars
+
