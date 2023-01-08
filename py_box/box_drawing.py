@@ -69,6 +69,16 @@ class BoxDrawing:
     def print_box(self):
         print(self.preview_string)
 
+    def surround_string_with_box(self, s) -> str:
+        lines = s.split("\n")
+        max_size = max(len(line) for line in lines)
+
+        top_line = f"{self.nw_corner.unicode_str}{self.north.unicode_str * (max_size + 2)}{self.ne_corner.unicode_str}"
+        other_lines = "\n".join(f"{self.west.unicode_str} {line:<{max_size}} {self.east.unicode_str}" for line in lines)
+        bottom_line = f"{self.sw_corner.unicode_str}{self.south.unicode_str * (max_size + 2)}{self.se_corner.unicode_str}"
+
+        return '\n'.join([top_line, other_lines, bottom_line])
+
     def to_telescope_collection(self) -> List[str]:
         # top, right, bottom, left, NW, NE, SE, SW
         chars = [
