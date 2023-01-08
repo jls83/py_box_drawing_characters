@@ -1,7 +1,7 @@
 from enum import Enum
 
-from .appearance import LineWeight, LinePattern, LineAppearance
-from .common import IUnicode
+from py_box.appearance import LineWeight, LinePattern, LineAppearance
+from py_box.common import IUnicode
 
 
 KEY_HORIZONTAL = "h"

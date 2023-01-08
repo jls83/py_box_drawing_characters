@@ -1,8 +1,8 @@
 from typing import List
 
-from .appearance import LineAppearance
-from .corner import Corner, CornerDirection
-from .line import Line, LineDirection
+from py_box.appearance import LineAppearance
+from py_box.corner import Corner, CornerDirection
+from py_box.line import Line, LineDirection
 
 
 class BoxDrawingException(Exception):

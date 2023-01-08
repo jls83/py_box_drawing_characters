@@ -1,7 +1,7 @@
 from enum import Enum
 
-from .appearance import LineAppearance, LinePattern
-from .common import IUnicode
+from py_box.appearance import LineAppearance, LinePattern
+from py_box.common import IUnicode
 
 class LineDirection(Enum):
     HORIZONTAL = 1
