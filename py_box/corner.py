@@ -72,11 +72,16 @@ class Corner(IUnicode):
             # check if the weights are the same; we only want one if so.
             case CornerLineWeights(horizontal=h, vertical=v) if h == v:
                 chg = [v.name, vertical_direction, "AND", horizontal_direction]
+            # We can't build `Corner` objects if one weight is `DOUBLE` and the other is not `LIGHT` or `DOUBLE`.
+            case CornerLineWeights(horizontal=LineWeight.DOUBLE, vertical=other)\
+                    | CornerLineWeights(horizontal=other, vertical=LineWeight.DOUBLE)\
+                    if other != LineWeight.LIGHT:
+                raise CornerException(f"Cannot build `Corner` with line_weights `{other.name}` and `DOUBLE`")
             # if we have a DOUBLE weight and a LIGHT weight, change the LIGHT name to "SINGLE"
-            case CornerLineWeights(horizontal=LineWeight.DOUBLE, vertical=LineWeight.LIGHT):
+            case CornerLineWeights(horizontal=LineWeight.DOUBLE, vertical=_):
                 chg = [vertical_direction, LineWeight.DOUBLE.name, "AND", horizontal_direction, "SINGLE"]
             # Same here
-            case CornerLineWeights(horizontal=LineWeight.LIGHT, vertical=LineWeight.DOUBLE):
+            case CornerLineWeights(horizontal=_, vertical=LineWeight.DOUBLE):
                 chg = [vertical_direction, "SINGLE", "AND", horizontal_direction, LineWeight.DOUBLE.name]
             # The "regular" case
             case CornerLineWeights(horizontal=h, vertical=v):
