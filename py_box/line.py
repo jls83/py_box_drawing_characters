@@ -1,6 +1,6 @@
 from enum import Enum
 
-from .appearance import LineAppearance, LineSomething
+from .appearance import LineAppearance, LinePattern
 
 class LineDirection(Enum):
     HORIZONTAL = 1
@@ -20,7 +20,7 @@ class Line:
     def unicode_name(self):
         parts = ["BOX DRAWINGS", self.line_appearance.line_weight.name]
 
-        if self.line_appearance.line_pattern != LineSomething.SOLID:
+        if self.line_appearance.line_pattern != LinePattern.SOLID:
             parts.append(self.line_appearance.line_pattern.unicode_name)
 
         parts.append(self.direction.name)

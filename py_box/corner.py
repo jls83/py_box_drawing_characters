@@ -1,6 +1,6 @@
 from enum import Enum
 
-from .appearance import LineWeight, LineSomething, LineAppearance
+from .appearance import LineWeight, LinePattern, LineAppearance
 
 class CornerDirection(Enum):
     NORTH_WEST = 1
@@ -24,8 +24,8 @@ class Corner:
 
         if line_patterns is None:
             self.line_patterns = {
-                "h": LineSomething.SOLID,
-                "v": LineSomething.SOLID,
+                "h": LinePattern.SOLID,
+                "v": LinePattern.SOLID,
             }
         else:
             self.line_patterns = line_patterns
