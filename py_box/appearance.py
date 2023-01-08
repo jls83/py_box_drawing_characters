@@ -38,3 +38,6 @@ class LineAppearance:
 
         self.line_weight = line_weight
         self.line_pattern = line_pattern
+
+    def __repr__(self):
+        return f"<LineAppearance: {self.line_weight.name}-{self.line_pattern.name}>"

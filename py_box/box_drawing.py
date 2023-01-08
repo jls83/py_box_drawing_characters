@@ -2,31 +2,30 @@ from .appearance import LineAppearance
 from .corner import Corner, CornerDirection
 from .line import Line, LineDirection
 
+
+class BoxDrawingException(Exception):
+    pass
+
+
 class BoxDrawing:
     def __init__(self, *args: LineAppearance):
         arg_count = len(args)
 
-        if arg_count in {0, 3}:
-            raise Exception
-        elif arg_count == 1:  # Same lines on all sides
-            self.top = args[0]
-            self.bottom = args[0]
-            self.left = args[0]
-            self.right = args[0]
-        elif arg_count == 2:  # Horizontal lines the same, vertical lines the same
-            self.top = args[0]
-            self.bottom = args[0]
-            self.left = args[1]
-            self.right = args[1]
-        elif arg_count == 4:  # All lines distinct
-            self.top = args[0]
-            self.bottom = args[1]
-            self.left = args[2]
-            self.right = args[3]
-        else:
-            raise Exception
+        correct_arg_count = (arg_count in {1, 2, 4})
+        all_are_line_appearance = all(type(arg) == LineAppearance for arg in args)
 
-        # TODO: Check DOUBLE vs. HEAVY weights
+        if not (correct_arg_count and all_are_line_appearance):
+            raise BoxDrawingException(
+                f"Cannot create `BoxDrawing` from these items: {args}"
+            )
+        elif arg_count == 1:  # Same lines on all sides.
+            self.top = self.bottom = self.left = self.right = args[0]
+        elif arg_count == 2:  # Parallel lines match.
+            self.top, self.left = args
+            self.bottom, self.right = self.top, self.left
+        elif arg_count == 4:  # All lines distinct.
+            self.top, self.bottom, self.left, self.right = args
+
         # TODO: Check DASH corners
 
         self._build_corners()
