@@ -1,12 +1,13 @@
 from enum import Enum
 
 from .appearance import LineAppearance, LinePattern
+from .common import IUnicode
 
 class LineDirection(Enum):
     HORIZONTAL = 1
     VERTICAL = 2
 
-class Line:
+class Line(IUnicode):
     def __init__(self, direction: LineDirection, line_appearance: LineAppearance):
         self.direction = direction
         self.line_appearance = line_appearance

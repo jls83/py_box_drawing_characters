@@ -43,24 +43,18 @@ class BoxDrawing:
         self.east = Line(LineDirection.VERTICAL, self.right)
         self.west = Line(LineDirection.VERTICAL, self.left)
 
-    @staticmethod
-    def unicode_name_to_str(unicode_name):
-        return u"\\N{{{}}}".format(unicode_name).encode().decode('unicode-escape')
-
     def print_box(self):
         strs = {
-            "nw_corner": self.nw_corner,
-            "ne_corner": self.ne_corner,
-            "se_corner": self.se_corner,
-            "sw_corner": self.sw_corner,
-            "north": self.north,
-            "south": self.south,
-            "east": self.east,
-            "west": self.west,
+            "nw_corner": self.nw_corner.unicode_str,
+            "ne_corner": self.ne_corner.unicode_str,
+            "se_corner": self.se_corner.unicode_str,
+            "sw_corner": self.sw_corner.unicode_str,
+            "north": self.north.unicode_str,
+            "south": self.south.unicode_str,
+            "east": self.east.unicode_str,
+            "west": self.west.unicode_str,
         }
 
-        strs = {k: self.unicode_name_to_str(v.unicode_name) for k, v in strs.items()}
-        
         format_string = "\n".join([
             "{nw_corner}{north}{north}{north}{ne_corner}",
             "{west}   {east}",
@@ -72,14 +66,14 @@ class BoxDrawing:
     def to_telescope_collection(self):
         # top, right, bottom, left, NW, NE, SE, SW
         chars = [
-            self.north,
-            self.east,
-            self.south,
-            self.west,
-            self.nw_corner,
-            self.ne_corner,
-            self.se_corner,
-            self.sw_corner,
+            self.north.unicode_str,
+            self.east.unicode_str,
+            self.south.unicode_str,
+            self.west.unicode_str,
+            self.nw_corner.unicode_str,
+            self.ne_corner.unicode_str,
+            self.se_corner.unicode_str,
+            self.sw_corner.unicode_str,
         ]
 
-        return [self.unicode_name_to_str(char.unicode_name) for char in chars]
+        return chars

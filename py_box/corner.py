@@ -1,6 +1,7 @@
 from enum import Enum
 
 from .appearance import LineWeight, LinePattern, LineAppearance
+from .common import IUnicode
 
 
 KEY_HORIZONTAL = "h"
@@ -30,7 +31,7 @@ class CornerLinePatterns:
         self.vertical = vertical
 
 
-class Corner:
+class Corner(IUnicode):
     DEFAULT_LINE_WEIGHTS = CornerLineWeights(
         LineWeight.LIGHT,
         LineWeight.LIGHT,
