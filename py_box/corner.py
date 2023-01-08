@@ -2,36 +2,41 @@ from enum import Enum
 
 from .appearance import LineWeight, LinePattern, LineAppearance
 
+
+KEY_HORIZONTAL = "h"
+KEY_VERTICAL = "v"
+
+
 class CornerDirection(Enum):
     NORTH_WEST = 1
     NORTH_EAST = 2
     SOUTH_EAST = 3
     SOUTH_WEST = 4
 
+
+class CornerException(Exception):
+    pass
+
+
 class Corner:
-    def __init__(self, direction: CornerDirection, line_weights=None,
-                 line_patterns=None):
+    DEFAULT_LINE_WEIGHTS = {
+        KEY_HORIZONTAL: LineWeight.LIGHT,
+        KEY_VERTICAL: LineWeight.LIGHT,
+    }
+
+    DEFAULT_LINE_PATTERNS = {
+        KEY_HORIZONTAL: LinePattern.SOLID,
+        KEY_VERTICAL: LinePattern.SOLID,
+    }
+
+    def __init__(self, direction: CornerDirection, line_weights=DEFAULT_LINE_WEIGHTS,
+                 line_patterns=DEFAULT_LINE_PATTERNS):
         self.direction = direction
-
-        if line_weights is None:
-            self.line_weights = {
-                "h": LineWeight.LIGHT,
-                "v": LineWeight.LIGHT,
-            }
-        else:
-            self.line_weights = line_weights
-
-
-        if line_patterns is None:
-            self.line_patterns = {
-                "h": LinePattern.SOLID,
-                "v": LinePattern.SOLID,
-            }
-        else:
-            self.line_patterns = line_patterns
+        self.line_weights = line_weights
+        self.line_patterns = line_patterns
 
     def __repr__(self):
-        return f'<Corner: {self.unicode_name}>'
+        return f"<Corner: {self.unicode_name}>"
 
     @property
     def unicode_name(self):
@@ -53,36 +58,36 @@ class Corner:
             horizontal_direction = "RIGHT"
 
         # check if the weights are the same; we only want one if so.
-        if self.line_weights["h"] == self.line_weights["v"]:
+        if self.line_weights[KEY_HORIZONTAL] == self.line_weights[KEY_VERTICAL]:
             parts.extend([
-                self.line_weights["v"].name,
+                self.line_weights[KEY_VERTICAL].name,
                 vertical_direction,
                 "AND",
                 horizontal_direction,
             ])
-        elif self.line_weights["v"] == LineWeight.DOUBLE and self.line_weights["h"] == LineWeight.LIGHT:
+        elif self.line_weights[KEY_VERTICAL] == LineWeight.DOUBLE and self.line_weights[KEY_HORIZONTAL] == LineWeight.LIGHT:
             parts.extend([
                 vertical_direction,
-                self.line_weights["v"].name,
+                self.line_weights[KEY_VERTICAL].name,
                 "AND",
                 horizontal_direction,
                 "SINGLE"
             ])
-        elif self.line_weights["h"] == LineWeight.DOUBLE and self.line_weights["v"] == LineWeight.LIGHT:
+        elif self.line_weights[KEY_HORIZONTAL] == LineWeight.DOUBLE and self.line_weights[KEY_VERTICAL] == LineWeight.LIGHT:
             parts.extend([
                 vertical_direction,
                 "SINGLE",
                 "AND",
                 horizontal_direction,
-                self.line_weights["h"].name,
+                self.line_weights[KEY_HORIZONTAL].name,
             ])
         else:
             parts.extend([
                 vertical_direction,
-                self.line_weights["v"].name,
+                self.line_weights[KEY_VERTICAL].name,
                 "AND",
                 horizontal_direction,
-                self.line_weights["h"].name,
+                self.line_weights[KEY_HORIZONTAL].name,
             ])
 
         return " ".join(parts)
@@ -91,13 +96,11 @@ class Corner:
     def from_line_appearance(cls, direction: CornerDirection, horizontal: LineAppearance,
                              vertical: LineAppearance):
         line_weights = {
-            "h": horizontal.line_weight,
-            "v": vertical.line_weight,
+            KEY_HORIZONTAL: horizontal.line_weight,
+            KEY_VERTICAL: vertical.line_weight,
         }
         line_patterns = {
-            "h": horizontal.line_pattern,
-            "v": vertical.line_pattern,
+            KEY_HORIZONTAL: horizontal.line_pattern,
+            KEY_VERTICAL: vertical.line_pattern,
         }
         return cls(direction, line_weights, line_patterns)
-
-
