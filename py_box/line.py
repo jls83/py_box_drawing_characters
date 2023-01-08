@@ -14,11 +14,11 @@ class Line(IUnicode):
 
         # TODO: check `unicode_name_to_str`, raise exception
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f'<Line: {self.unicode_name}>'
 
     @property
-    def unicode_name(self):
+    def unicode_name(self) -> str:
         parts = ["BOX DRAWINGS", self.line_appearance.line_weight.name]
 
         if self.line_appearance.line_pattern != LinePattern.SOLID:

@@ -1,3 +1,5 @@
+from typing import List
+
 from .appearance import LineAppearance
 from .corner import Corner, CornerDirection
 from .line import Line, LineDirection
@@ -43,7 +45,8 @@ class BoxDrawing:
         self.east = Line(LineDirection.VERTICAL, self.right)
         self.west = Line(LineDirection.VERTICAL, self.left)
 
-    def print_box(self):
+    @property
+    def preview_string(self) -> str:
         strs = {
             "nw_corner": self.nw_corner.unicode_str,
             "ne_corner": self.ne_corner.unicode_str,
@@ -61,9 +64,12 @@ class BoxDrawing:
             "{sw_corner}{south}{south}{south}{se_corner}",
         ])
 
-        print(format_string.format(**strs))
+        return format_string.format(**strs)
 
-    def to_telescope_collection(self):
+    def print_box(self):
+        print(self.preview_string)
+
+    def to_telescope_collection(self) -> List[str]:
         # top, right, bottom, left, NW, NE, SE, SW
         chars = [
             self.north.unicode_str,

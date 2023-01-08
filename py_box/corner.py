@@ -48,11 +48,11 @@ class Corner(IUnicode):
         self.line_weights = line_weights
         self.line_patterns = line_patterns
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"<Corner: {self.unicode_name}>"
 
     @property
-    def unicode_name(self):
+    def unicode_name(self) -> str:
         parts = ["BOX DRAWINGS"]
 
         match self.direction:
